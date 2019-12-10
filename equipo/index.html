@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    
+    <title>Equipo</title>
+</head>
+<body>
+
+<div id="app" class="container">
+    <section class="form">
+        <form action="" class="text-center">
+            <input v-model="equipoAdd.nombre" @keyup.enter="crearEquipo" type="text" class="form-control" placeholder="Nombre">
+            <input v-model="equipoAdd.estadio" @keyup.enter="crearEquipo" type="text" name="estadio" placeholder="Estadio" class="form-control">
+            <input v-model="equipoAdd.aforo" @keyup.enter="crearEquipo" type="number" name="aforo" placeholder="Aforo" class="form-control">
+            <input v-model="equipoAdd.presupuesto" @keyup.enter="crearEquipo" type="number" step="any" name="presupuesto" placeholder="Presupuesto" class="form-control">
+            <a href = "http://localhost/vueendpoint/equipo/" style="color: aliceblue;"><input @click="crearEquipo" type="button" value="Añadir" class="btn btn-success"></a>
+        </form>
+    </section>
+     <!-- Tabla donde se muestran los datos -->
+     <section class="data">
+        <caption>Lista equipos</caption>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Estadio</th>
+                    <th scope="col">Aforo</th>
+                    <th scope="col">Presupuesto</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for= "equipo in equipos"   >
+
+
+                    <td> 
+                        <span v-if="formActualizar && equipoUpdate.id == equipo.id">
+                            <!-- Formulario para actualizar -->
+                            <input v-model="equipoUpdate.nombre" type="text" class="form-control">
+                        </span>
+                        <span v-else>
+                            {{ equipo.nombre }}
+                        </span>
+                    </td>
+
+                    <td> 
+                        <span v-if="formActualizar && equipoUpdate.id == equipo.id">
+                            <!-- Formulario para actualizar -->
+                            <input v-model="equipoUpdate.estadio" type="text" class="form-control">
+                        </span>
+                        <span v-else>
+                            {{ equipo.estadio }}
+                        </span>
+                    </td>
+
+                    <td> 
+                    <span v-if="formActualizar && equipoUpdate.id == equipo.id">
+                        <!-- Formulario para actualizar -->
+                        <input v-model="equipoUpdate.aforo" type="text" class="form-control">
+                    </span>
+                    <span v-else>
+                        {{ equipo.aforo }}
+                    </span>
+                    </td>
+                    <td> 
+                        <span v-if="formActualizar && equipoUpdate.id == equipo.id">
+                            <!-- Formulario para actualizar -->
+                            <input v-model="equipoUpdate.presupuesto" type="text" class="form-control">
+                        </span>
+                        <span v-else>
+                            {{ equipo.presupuesto }}
+                        </span>
+                    </td>
+                    <td>
+                        <!-- Botón para guardar la información actualizada -->
+                        <span v-if="formActualizar && equipoUpdate.id == equipo.id">
+                            <button @click="actualizarEquipo( equipoUpdate)" class="btn btn-success" ><a href = "http://localhost/vueendpoint/equipo/" style="color: aliceblue;">Guardar </a></button>
+                        </span>
+                        <span v-else>
+                            <!-- Botón para mostrar el formulario de actualizar -->
+                            <button @click="verFormActualizar(equipo)" class="btn btn-warning">Actualizar</button>
+                            <!-- Botón para borrar -->
+                            <button @click="borrarEquipo(equipo.id)" class="btn btn-danger" ><a href = "http://localhost/vueendpoint/equipo/" style="color: aliceblue;">Borrar </a></button>
+                        </span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
+
+
+
